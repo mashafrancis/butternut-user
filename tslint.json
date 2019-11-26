@@ -25,7 +25,7 @@
     "no-constant-condition": true,
     "no-unused-expression": true,
     "ban": false,
-    "class-name": true,
+//    "class-name": true,
     "comment-format": [
       true,
       "check-space"
