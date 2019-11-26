@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2018",
     "module": "commonjs",
     "lib": [
       "dom",
@@ -19,8 +19,8 @@
     "composite": false,
     "incremental": true,
     "removeComments": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
+//    "noImplicitAny": true,
+//    "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
