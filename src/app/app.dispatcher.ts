@@ -1,9 +1,14 @@
 import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { useContainer } from 'class-validator';
+import * as cors from 'cors';
+import * as helmet from 'helmet';
+
 import { AppModule } from '../app.module';
-import { AppLogger } from './app.logger';
 
 import { config } from '../config';
+import { AppLogger } from './app.logger';
 
 export class AppDispatcher {
   private app: INestApplication;
@@ -13,6 +18,21 @@ export class AppDispatcher {
     this.app = await NestFactory.create(AppModule, {
       logger: new AppLogger('Nest'),
     });
+    useContainer(this.app.select(AppModule), { fallbackOnErrors: true });
+    this.app.use(cors());
+    if (config.isProduction) {
+      this.app.use(helmet());
+    }
+    const options = new DocumentBuilder()
+      .setTitle(config.name)
+      .setDescription(config.description)
+      .setVersion(config.version)
+      .addBearerAuth()
+      .build();
+
+    const document = SwaggerModule.createDocument(this.app, options);
+    document.paths['/graphql'] = { get: { tags: ['graphql'] }, post: { tags: ['graphql'] } };
+    SwaggerModule.setup('/swagger', this.app, document);
   }
 
   async dispatch(): Promise<void> {
