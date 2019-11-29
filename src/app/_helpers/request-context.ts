@@ -1,6 +1,6 @@
 import cls from 'cls-hooked';
 import { Request, Response } from 'express';
-import uuid from 'uuid';
+import * as uuid from 'uuid';
 import { UserEntity } from '../user/entity';
 
 export class RequestContext {

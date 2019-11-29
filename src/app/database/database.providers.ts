@@ -1,10 +1,10 @@
 import { createConnection } from 'typeorm';
 import { config } from '../../config';
-import { DB_CONNECTION_TOKEN } from './database.constants';
+import { DATABASE_CONNECTION } from './database.constants';
 
 export const databaseProviders = [
   {
-    provide: DB_CONNECTION_TOKEN,
+    provide: DATABASE_CONNECTION,
     useFactory: async () => createConnection(config.database),
   },
 ];

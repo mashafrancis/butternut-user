@@ -1,15 +1,15 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { IsEmail, IsOptional, IsString, IsUrl, MinLength, Validate, ValidateIf } from 'class-validator';
+import { IsEmail, IsOptional, IsString, IsUrl, MinLength, ValidateIf } from 'class-validator';
 import { DateTime } from 'luxon';
-import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, PrimaryColumn } from 'typeorm';
+import { uid } from '../../../utils/fancyGenerator';
 import { ExtendedEntity, passwordHash } from '../../_helpers';
-import { IsUserAlreadyExist } from '../user.validator';
 
 @Entity()
 export class UserEntity extends ExtendedEntity {
 
   @ApiModelProperty()
-  @ObjectIdColumn()
+  @PrimaryColumn('varchar', { length: 255 })
   public id: string;
 
   @ApiModelProperty()
@@ -19,39 +19,36 @@ export class UserEntity extends ExtendedEntity {
 
   @ApiModelProperty()
   @IsString()
-  @Column()
+  @Column({ nullable: true })
   public last_name: string;
 
   @ApiModelProperty()
   @IsEmail()
   @IsOptional()
   @ValidateIf(o => !o.id)
-  @Validate(IsUserAlreadyExist, {
-    message: 'User already exists',
-  })
-  @Column()
+  @Column('varchar', { unique: true, length: 255 })
   public email: string;
 
   @ApiModelProperty()
   @IsString()
-  @Column()
+  @Column({ nullable: true })
   public phone_num: string;
 
   @ApiModelProperty()
   @IsOptional()
   @IsUrl()
-  @Column()
+  @Column({ default: 'https://res.cloudinary.com/mashafrancis/image/upload/v1552641620/kari4me/nan.jpg' })
   public profile_img: string;
 
   @ApiModelProperty()
   @MinLength(4)
   @IsOptional()
-  @Column()
+  @Column('text')
   public password: string;
 
   @ApiModelProperty()
-  @Column()
-  public is_verified = false;
+  @Column('boolean', { default: false })
+  public is_verified: boolean;
 
   @ApiModelProperty()
   @IsOptional()
@@ -71,8 +68,13 @@ export class UserEntity extends ExtendedEntity {
   @Column()
   public activationCode: string;
 
-  @Column()
+  @Column({ type: 'timestamptz' })
   public onlineAt: DateTime;
+
+  @BeforeInsert()
+  addId() {
+    this.id = uid.generate();
+  }
 
   async hashPassword() {
     this.password = await passwordHash(this.password);

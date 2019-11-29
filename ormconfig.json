@@ -1,0 +1,27 @@
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "francismasha",
+    "password": "masha",
+    "database": "butternut",
+    "synchronize": false,
+    "logging": true,
+    "entities": [
+      "src/app/*/entity/*.entity.ts"
+    ],
+    "migrations": [
+      "src/migrations/*.ts"
+    ],
+    "subscribers": [
+      "src/subscriber/**/*.ts"
+    ],
+    "cli": {
+      "entitiesDir": "src/app/**/entity",
+      "migrationsDir": "src/migrations",
+      "subscribersDir": "src/subscriber"
+    }
+  }
+]
