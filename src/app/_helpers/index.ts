@@ -9,11 +9,13 @@ export * from './rest.exception';
 export * from './request-context';
 export * from './middleware/request-context.middleware';
 
-export function ucfirst(string) {
-  return string[0].toUpperCase() + string.slice(1);
-}
+export const ucfirst = string => string[0].toUpperCase() + string.slice(1);
 
-export function passwordHash(password: string) {
+export const passwordHash = (password: string) => {
   const salt = randomBytes(32);
   return argon2.hash(password, { salt });
-}
+};
+
+export const verifyPassword = (hashedPassword: string, password: string) => {
+  return argon2.verify(hashedPassword, password);
+};

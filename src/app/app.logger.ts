@@ -7,6 +7,18 @@ export class AppLogger implements LoggerService {
   private logger: Logger;
 
   constructor(label?: string) {
+    const options = {
+      file: {
+        level: 'info' || 'error',
+        filename: `${__dirname}/../../logs/app.log`,
+        handleExceptions: true,
+        json: true,
+        maxsize: 5242880, // 5MB
+        maxFiles: 5,
+        colorize: false,
+      },
+    };
+
     this.logger = createLogger({
       format: combine(
         format.label({ label }),
@@ -19,13 +31,15 @@ export class AppLogger implements LoggerService {
       ),
       level: config.logger.level,
       transports: [(process.env.NODE_ENV !== 'development')
-        ? new transports.Console()
+        ? new transports.File(options.file)
         : new transports.Console({
           format: format.combine(
+            format.errors({ stack: true }),
             format.cli(),
             format.splat()
           ),
-        })],
+        }),
+      ],
     });
   }
 

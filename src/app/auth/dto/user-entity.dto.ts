@@ -1,17 +1,18 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export class UserEntityDto {
-  @ApiModelProperty()
+export class UserEntityDto implements Readonly<UserEntityDto> {
+  @ApiModelProperty({ required: true })
   public first_name: string;
 
-  @ApiModelProperty()
+  @ApiModelProperty({ required: true })
   public last_name: string;
 
-  @ApiModelProperty()
+  @ApiModelProperty({ required: true })
   public email: string;
 
   @ApiModelProperty({
     minLength: 4,
+    required: true,
   })
   public password: string;
 

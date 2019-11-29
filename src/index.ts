@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import 'reflect-metadata';
-// import exitHook from 'async-exit-hook';
+
+import * as exitHook from 'async-exit-hook';
 import { AppDispatcher, AppLogger } from './app';
 
 const logger = new AppLogger('Index');
@@ -17,11 +18,11 @@ dispatcher
     process.exit(1);
   });
 
-// exitHook((callback) => {
-//   dispatcher
-//     .shutdown()
-//     .then(() => {
-//       logger.log('Graceful shutdown the server');
-//       callback();
-//     });
-// });
+exitHook((callback) => {
+  dispatcher
+    .shutdown()
+    .then(() => {
+      logger.log('Graceful shutdown the server');
+      callback();
+    });
+});

@@ -1,8 +1,8 @@
-import { HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { DateTime } from 'luxon';
 import { DeepPartial, MongoRepository, Repository } from 'typeorm';
 import { CrudService } from '../../base';
-import { passwordHash, RestException } from '../_helpers';
+import { RestException, verifyPassword } from '../_helpers';
 import { AppLogger } from '../app.logger';
 import { CredentialsDto } from '../auth/dto/credentials.dto';
 import { UserEmailEntity, UserEntity } from './entity';
@@ -25,15 +25,17 @@ export class UserService extends CrudService<UserEntity> {
   public async findByEmail(email: string): Promise<UserEntity> {
     this.logger.debug(`[findByEmail] Looking in users for ${email}`);
     const user = await this.findOne({ where: { email: { eq: email } } });
-    if (!user) {
-      this.logger.debug(`[findByEmail] Not found in users an user with email ${email}`);
+    if (user) {
+      this.logger.debug(`[findByEmail] Found in users an user with id ${user.id}`);
+    } else {
+      this.logger.debug(`[findByEmail] User with email ${email} not found`);
     }
-    this.logger.debug(`[findByEmail] Found in users an user with id ${user.id}`);
     return user;
   }
 
   public async login(credentials: CredentialsDto): Promise<UserEntity> {
     const user = await this.findByEmail(credentials.email);
+    const validPassword = await verifyPassword(user.password, credentials.password);
 
     if (!user) {
       throw new HttpException({
@@ -42,8 +44,8 @@ export class UserService extends CrudService<UserEntity> {
       },                      HttpStatus.NOT_FOUND);
     }
 
-    if (user.password !== await passwordHash(credentials.password)) {
-      throw new NotFoundException(`User doesn't exists`);
+    if (!validPassword) {
+      throw new BadRequestException(`Password is invalid!`);
     }
 
     if (!user.is_verified) {
@@ -57,18 +59,22 @@ export class UserService extends CrudService<UserEntity> {
   }
 
   public async create(data: DeepPartial<UserEntity>): Promise<UserEntity> {
+    const userExists = await this.findByEmail(data.email);
+    if (userExists) {
+      throw new HttpException({
+        error: 'User',
+        message: `User already exists. Kindly login!`,
+      },                      HttpStatus.CONFLICT);
+    }
     const entity = this.repository.create(data);
     await this.validate(entity);
     await entity.hashPassword();
     if (!entity.createdAt) {
       entity.createdAt = DateTime.utc();
     }
-    this.logger.verbose('entity');
     entity.updatedAt = DateTime.utc();
     const user = await entity.save();
-    this.logger.debug(`${user.first_name}`);
-    this.logger.debug(`${user.password}`);
-    // await this.subscription.create({ user: user.id, email: true });
+    await this.subscription.create({ user: user.id.toString(), email: true });
     return user;
   }
 

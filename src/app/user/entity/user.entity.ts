@@ -1,20 +1,20 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { IsEmail, IsOptional, IsString, IsUrl, MinLength, ValidateIf } from 'class-validator';
+import { IsEmail, IsOptional, IsString, IsUrl, MinLength, Validate, ValidateIf } from 'class-validator';
 import { DateTime } from 'luxon';
-import { BeforeInsert, Column, Entity, PrimaryColumn } from 'typeorm';
-import { uid } from '../../../utils/fancyGenerator';
+import { Column, Entity, ObjectIdColumn } from 'typeorm';
 import { ExtendedEntity, passwordHash } from '../../_helpers';
+import { IsUserAlreadyExist } from '../user.validator';
 
 @Entity()
 export class UserEntity extends ExtendedEntity {
 
   @ApiModelProperty()
-  @PrimaryColumn('varchar', { length: 255 })
+  @ObjectIdColumn()
   public id: string;
 
   @ApiModelProperty()
   @IsString()
-  @Column()
+  @Column({ nullable: true })
   public first_name: string;
 
   @ApiModelProperty()
@@ -26,7 +26,10 @@ export class UserEntity extends ExtendedEntity {
   @IsEmail()
   @IsOptional()
   @ValidateIf(o => !o.id)
-  @Column('varchar', { unique: true, length: 255 })
+  @Validate(IsUserAlreadyExist, {
+    message: 'User already exists',
+  })
+  @Column()
   public email: string;
 
   @ApiModelProperty()
@@ -43,11 +46,11 @@ export class UserEntity extends ExtendedEntity {
   @ApiModelProperty()
   @MinLength(4)
   @IsOptional()
-  @Column('text')
+  @Column()
   public password: string;
 
   @ApiModelProperty()
-  @Column('boolean', { default: false })
+  @Column()
   public is_verified: boolean;
 
   @ApiModelProperty()
@@ -65,16 +68,13 @@ export class UserEntity extends ExtendedEntity {
   @Column()
   public phone_token: string;
 
+  @IsOptional()
   @Column()
   public activationCode: string;
 
-  @Column({ type: 'timestamptz' })
+  @IsOptional()
+  @Column({ nullable: true, type: 'timestamptz' })
   public onlineAt: DateTime;
-
-  @BeforeInsert()
-  addId() {
-    this.id = uid.generate();
-  }
 
   async hashPassword() {
     this.password = await passwordHash(this.password);
