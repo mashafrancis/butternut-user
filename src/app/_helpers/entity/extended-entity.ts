@@ -1,18 +1,18 @@
-import {ApiModelProperty} from '@nestjs/swagger';
-import {BaseEntity, Column} from 'typeorm';
-import {DateTime} from 'luxon';
+import { ApiModelProperty } from '@nestjs/swagger';
+import { DateTime } from 'luxon';
+import { BaseEntity, Column } from 'typeorm';
 
 export class ExtendedEntity extends BaseEntity {
-	public id?: string;
+  public id?: string;
 
-	@Column()
-	public isDeleted = false;
+  @Column('boolean', { default: false })
+  public isDeleted: boolean;
 
-	@ApiModelProperty()
-	@Column()
-	public createdAt: DateTime;
+  @ApiModelProperty()
+  @Column({ type: 'timestamptz' })
+  public createdAt: DateTime;
 
-	@ApiModelProperty()
-	@Column()
-	public updatedAt: DateTime;
+  @ApiModelProperty()
+  @Column({ type: 'timestamptz' })
+  public updatedAt: DateTime;
 }

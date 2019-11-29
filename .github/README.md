@@ -6,7 +6,6 @@
 [![CircleCI](https://circleci.com/gh/mashafrancis/butternut-user.svg?style=svg)](https://circleci.com/gh/mashafrancis/butternut-user)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f6bdcb4f36837ce24b06/test_coverage)](https://codeclimate.com/github/mashafrancis/butternut-user/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f6bdcb4f36837ce24b06/maintainability)](https://codeclimate.com/github/mashafrancis/butternut-user/maintainability)
-[![masha](https://img.shields.io/badge/maintained%20by-masha-1eb4e9.svg)](https://masha.io/)
 
 </div>
 

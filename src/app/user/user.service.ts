@@ -53,7 +53,6 @@ export class UserService extends CrudService<UserEntity> {
         condition: UserErrorEnum.NOT_VERIFIED,
       },                      HttpStatus.PRECONDITION_FAILED);
     }
-
     return user;
   }
 
@@ -64,9 +63,12 @@ export class UserService extends CrudService<UserEntity> {
     if (!entity.createdAt) {
       entity.createdAt = DateTime.utc();
     }
+    this.logger.verbose('entity');
     entity.updatedAt = DateTime.utc();
     const user = await entity.save();
-    await this.subscription.create({ user: user.id, email: true });
+    this.logger.debug(`${user.first_name}`);
+    this.logger.debug(`${user.password}`);
+    // await this.subscription.create({ user: user.id, email: true });
     return user;
   }
 
