@@ -11,7 +11,7 @@
 
 <div align="center">
 
-    Butternut API user management micro-service
+    Butternut API user management micro-userService
 
   [![Butternut](../public/img/readme.svg)](https://butternut.com)
 
@@ -19,10 +19,21 @@
 
 </div>
 
-## Description
-This is the user management micro-service for the butternut project project used for user authentication and user profiling.
+### Description
+This is the user management micro-userService for the butternut project project used for user authentication and user profiling.
 
-## Running the app
+### Application Links and Documentation
+
+-   Frontend (Butternut App Hosting):
+    [butternut react web app](https://butternut-staging.herokuapp.com/)
+
+-   Postman collection
+    <br />
+    <br />
+    [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2222c2a8892e4e7c4b7e#?env%5Bbutternut%5D=W3sia2V5IjoiYmFzZS11cmwiLCJ2YWx1ZSI6IiIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoidG9rZW4iLCJ2YWx1ZSI6IiIsImVuYWJsZWQiOnRydWV9XQ==)
+
+
+### Running the app
 
 ```bash
 # development
@@ -35,7 +46,7 @@ $ yarn start:dev
 $ yarn start:prod
 ```
 
-## Test
+### Test
 
 ```bash
 # unit tests
@@ -48,13 +59,13 @@ $ yarn test:e2e
 $ yarn test:cov
 ```
 
-## Stay in touch
+### Stay in touch
 
 - Author - [Francis Masha](https://mashafrancis.com)
 - Website - [https://butternut.com](https://butternut.com/)
 - Twitter - [@butternut](https://twitter.com/butternut)
 
-## License
+### License
 
   Nest is [MIT licensed](LICENSE).
 

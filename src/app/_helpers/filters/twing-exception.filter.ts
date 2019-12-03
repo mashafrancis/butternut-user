@@ -4,7 +4,7 @@ import { TwingError, TwingErrorLoader } from 'twing';
 import { AppLogger } from '../../app.logger';
 
 @Catch(TwingErrorLoader)
-export class TwigExceptionFilter implements ExceptionFilter {
+export class TwingExceptionFilter implements ExceptionFilter {
   private logger = new AppLogger(TwingErrorLoader.name);
 
   catch(exception: TwingError, host: ArgumentsHost) {

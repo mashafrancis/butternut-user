@@ -1,14 +1,14 @@
 [
   {
     "name": "default",
-    "type": "postgres",
-    "host": "localhost",
-    "port": 5432,
-    "username": "francismasha",
-    "password": "masha",
-    "database": "butternut",
+    "type": "mongodb",
+    "url": "mongodb://localhost/butternut",
     "synchronize": false,
     "logging": true,
+    "logger": "all",
+    "useNewUrlParser": true,
+    "useUnifiedTopology": true,
+    "migrationsRun": true,
     "entities": [
       "src/app/*/entity/*.entity.ts"
     ],

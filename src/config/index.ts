@@ -1,3 +1,4 @@
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { readFileSync } from 'fs';
 import { ConnectionOptions } from 'typeorm';
 
@@ -33,6 +34,10 @@ interface Config {
       secret: string;
       timeout: number;
     };
+    verify_account: {
+      secret: string;
+      timeout: number;
+    };
     password_reset: {
       secret: string;
       timeout: number;
@@ -42,6 +47,21 @@ interface Config {
       timeout: number;
     }
   };
+  microservice: MicroserviceOptions;
+  google: {
+    clientID: string;
+    clientSecret: string;
+    callbackUrl: string;
+    refreshToken: string;
+    accessToken: string;
+    mailClientId: string;
+    mailClientSecret: string;
+    mailRefreshToken: string;
+  };
+  mail: {
+    from: string;
+  };
+  assetsPath: string;
 }
 
 export const config: Config = {
@@ -53,17 +73,18 @@ export const config: Config = {
   },
   isProduction: process.env.NODE_ENV === 'production',
   database: {
-    type: 'postgres',
-    // url: process.env.MONGODB_URI,
+    type: 'mongodb',
+    url: process.env.MONGODB_URI,
     synchronize: false,
-    host: 'localhost',
-    port: 5432,
-    username: 'francismasha',
-    password: 'masha',
-    database: 'butternut',
+    // host: 'localhost',
+    // port: 5432,
+    // username: 'francismasha',
+    // password: 'masha',
+    // database: 'butternut',
     logging: 'all',
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
+    logger: 'file',
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
     migrationsRun: true,
     migrations: [
       `${__dirname}/../migrations/*{.ts,.js}`,
@@ -89,6 +110,10 @@ export const config: Config = {
       secret: process.env.SESSION_REFRESH_SECRET,
       timeout: parseInt(process.env.SESSION_REFRESH_TIMEOUT, 10),
     },
+    verify_account: {
+      secret: process.env.SESSION_VERIFY_ACCOUNT,
+      timeout: parseInt(process.env.SESSION_VERIFY_ACCOUNT_TIMEOUT, 10),
+    },
     password_reset: {
       secret: process.env.SESSION_PASSWORD_RESET_SECRET,
       timeout: parseInt(process.env.SESSION_PASSWORD_RESET_TIMEOUT, 10),
@@ -98,4 +123,21 @@ export const config: Config = {
       timeout: parseInt(process.env.SESSION_VERIFY_TIMEOUT, 10),
     },
   },
+  microservice: {
+    transport: Transport.TCP,
+  },
+  google: {
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackUrl: process.env.GOOGLE_CALLBACK_URL,
+    refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+    accessToken: process.env.GOOGLE_ACCESS_TOKEN,
+    mailClientId: process.env.GOOGLE_MAIL_CLIENT_ID,
+    mailClientSecret: process.env.GOOGLE_MAIL_CLIENT_SECRET,
+    mailRefreshToken: process.env.GOOGLE_MAIL_REFRESH_TOKEN,
+  },
+  mail: {
+    from: process.env.MAIL_FROM,
+  },
+  assetsPath: `${__dirname}/../assets`,
 };

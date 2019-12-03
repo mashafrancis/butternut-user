@@ -1,14 +1,13 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
-import { BeforeInsert, Column, Entity, PrimaryColumn } from 'typeorm';
-import { uid } from '../../../utils/fancyGenerator';
+import { Column, Entity, ObjectIdColumn } from 'typeorm';
 import { ExtendedEntity } from '../../_helpers';
 
 @Entity()
 export class UserSubscriptionEntity extends ExtendedEntity {
 
   @ApiModelProperty()
-  @PrimaryColumn('varchar', { length: 255 })
+  @ObjectIdColumn()
   public id: string;
 
   @ApiModelProperty()
@@ -33,9 +32,4 @@ export class UserSubscriptionEntity extends ExtendedEntity {
   @IsOptional()
   @Column('boolean', { default: false })
   public sms: boolean;
-
-  @BeforeInsert()
-  addId() {
-    this.id = uid.generate();
-  }
 }

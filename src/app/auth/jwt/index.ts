@@ -5,7 +5,7 @@ import { UserEntity } from '../../user/entity';
 import { TokenDto } from '../dto/token.dto';
 
 export async function createAuthToken({ id }: DeepPartial<UserEntity>) {
-  const expiresIn = 7;
+  const expiresIn = config.session.timeout;
   const accessToken = createToken(id, expiresIn, config.session.secret);
   const refreshToken = createToken(id, config.session.refresh.timeout, config.session.refresh.secret);
   return {
