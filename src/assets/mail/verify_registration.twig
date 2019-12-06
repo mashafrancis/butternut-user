@@ -17,14 +17,15 @@
   <style>
     @media only screen and (max-width: 620px) {
       * {
-        font-family: "Google Sans", serif;
+        font-family: "Google Sans", Roboto, "Helvetica Neue", sans-serif;
+        font-weight: lighter;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
       }
 
       body, html {
         font-size: 16px;
-        font-weight: 400;
+        font-weight: lighter;
         margin: 0;
         min-height: 100vh;
         color: #202124;
@@ -111,67 +112,27 @@
         line-height: inherit;
       }
 
-      .mdc-button {
-        font-family: "Google Sans", serif;
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-font-smoothing: antialiased;
-        font-size: 14px;
-        line-height: 2.25rem;
-        font-weight: 500;
-        letter-spacing: .22px;
-        text-decoration: none;
-        text-transform: uppercase;
-        --mdc-ripple-fg-size: 0;
-        --mdc-ripple-left: 0;
-        --mdc-ripple-top: 0;
-        --mdc-ripple-fg-scale: 1;
-        --mdc-ripple-fg-translate-end: 0;
-        --mdc-ripple-fg-translate-start: 0;
-        -webkit-tap-highlight-color: transparent;
-        will-change: transform, opacity;
-        padding: 0 8px 0 8px;
-        display: inline-flex;
-        position: relative;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        min-width: 64px;
-        height: 36px;
-        border: none;
-        outline: 0;
-        line-height: inherit;
-        user-select: none;
-        -webkit-appearance: none;
-        overflow: hidden;
-        vertical-align: middle;
-        border-radius: 4px;
-        text-decoration: none;
-        background-color: #DB8C2E !important;;
-      }
-
       .mdc-button .mdc-button--raised {
         margin-left: -4px;
         margin-right: 8px;
       }
 
       .mdc-button table td:hover {
-        background-color: #DB8C2E !important;
+        background-color: #c4962b !important;
       }
 
       .mdc-button a:hover {
-        background-color: #DB8C2E !important;
-        border-color: #DB8C2E !important;
+        background-color: #c4962b !important;
+        border-color: #c4962b !important;
       }
     }
   </style>
 </head>
 <body class=""
       style="background-color: #f6f6f6; font-family: 'Raleway', sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
-<span class="preheader"
-      style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">This is preheader text. Some clients will show this text as a preview.</span>
 <table role="presentation" border="0" cellpadding="0"
        cellspacing="0" class="body"
-       style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-spacing: 0; background-color: #f6f6f6; width: 100%;"
+       style="border-collapse: separate; border-radius: 4px; border-width: 1px; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-spacing: 0; background-color: #f6f6f6; width: 100%;"
        width="100%" bgcolor="#f6f6f6">
   <tr>
     <td style="font-family: 'Raleway', sans-serif; font-size: 14px; vertical-align: top;"
@@ -203,13 +164,11 @@
                 <tr>
                   <td style="font-family: 'Raleway', sans-serif; font-size: 14px; vertical-align: top;"
                       valign="top">
-                    <h1 style="line-height: 1.4; margin: 0 0 30px;font-size: 35px; color: #008087; font-weight: 500; text-align: center; text-transform: capitalize;">
-                      Email Confirmation
-                    </h1>
-                    <p style="font-family: 'Google Sans', sans-serif; font-size: 16px; margin: 0 0 50px;text-align: center; font-weight: 300; letter-spacing: 1px; line-height: 30px;">
-                      Hey {{ user.first_name }}! Welcome to <b>Food Set Go!</b>, where we believe we'll deliver food at your own convenience.
-                      Simply click the button below to verify your email
-                      address and continue to eat with us.
+                    <p style="font-family: 'Google Sans', Roboto, 'Helvetica Neue', sans-serif;font-size: 16px; margin: 0 0 50px;text-align: center; font-weight: 300; line-height: 30px;">
+                      Hey {{ user.first_name }}! Welcome to <b>Food Set Go!</b>
+                      We deliver food at your own convenience.
+                      Kindly verify your email and get ready to make your food
+                      set go.
                     </p>
                     <table role="presentation" border="0"
                            cellpadding="0" cellspacing="0"
@@ -227,16 +186,13 @@
                                  style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-spacing: 0; width: auto; margin: 0 auto;">
                             <tbody>
                             <tr>
-                              <td style="font-family: 'Raleway', sans-serif; font-size: 14px; vertical-align: top; border-radius: 8px; text-align: center; background-color: #ffb03f;"
+                              <td style="font-size: 16px; vertical-align: top; border-radius: 8px; text-align: center; background-color: #ffb03f;"
                                   valign="top" align="center"
                                   bgcolor="#ffb03f">
-                                <a href="{{ config.serverUrl }}/activate?token={{ user.verificationToken }}"
+                                <a href="{{ config.clientUrl }}/activate?token={{ token }}"
                                    target="_blank"
-                                   style="text-decoration: none;">
-                                  <button class="mdc-button mdc-button--raised"
-                                          style="color: #fff; text-decoration: none; background-color: #DB8C2E; text-transform: unset;">
-                                    <span class="mdc-button__label">Verify Email Address</span>
-                                  </button>
+                                   style="display: inline-block; color: #ffffff; background-color: #c4962b; border: solid 2px #c4962b; border-radius: 4px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 16px; font-weight: normal; margin: 0; padding: 12px 24px; text-transform: capitalize; border-color: #c4962b;">
+                                  Verify your account
                                 </a>
                               </td>
                             </tr>
@@ -265,55 +221,18 @@
                  width="100%">
             <tr>
               <td class="content-block"
-                  style="font-family: Helvetica, sans-serif; vertical-align: top; padding-top: 0; padding-bottom: 24px; font-size: 12px; color: #999999; text-align: center;"
+                  style="font-family: 'Google Sans', Roboto, 'Helvetica Neue', sans-serif; vertical-align: top; padding-top: 0; padding-bottom: 24px; font-size: 12px; color: #999999; text-align: center;"
                   valign="top" align="center">
-                                <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;">
-                                  Food Set Go, PO Box 510 Nairobi, Kenya
-                                </span>
-                <br> Don't like these emails? <a href="#" style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">Unsubscribe</a>.
+                  <span class="apple-link"
+                        style="color: #999999; font-size: 12px; text-align: center;">
+                    Food Set Go, PO Box 510 Nairobi, Kenya
+                  </span>
               </td>
             </tr>
             <tr>
               <td class="content-block"
                   style="font-family: Helvetica, sans-serif; vertical-align: top; padding-top: 0; padding-bottom: 24px; font-size: 12px; color: #999999; text-align: center;"
                   valign="top" align="center">
-                <table border="0" cellpadding="0"
-                       cellspacing="0" class="social-sharing"
-                       style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto; margin: 0 auto; text-align: center;"
-                       align="center">
-                  <tr>
-                    <td style="font-family: Helvetica, sans-serif; vertical-align: top; font-size: 12px; color: #999999; text-align: center;"
-                        valign="top" align="center">
-                      <a href=""
-                         style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">
-                        <img
-                            src="https://res.cloudinary.com/almondgreen/image/upload/v1575360711/Butternut/iconfinder_1_Twitter3_colored_svg_5296516_oyskgu.png"
-                            alt="Follow us on Twitter"
-                            width="44"
-                            class="social-sharing-icon"
-                            style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%; height: 44px; margin: 0 2px;">
-                      </a>&nbsp;
-                      <a href=""
-                         style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">
-                        <img
-                            src="https://res.cloudinary.com/almondgreen/image/upload/v1575360711/Butternut/iconfinder_1_Facebook_colored_svg_copy_5296499_d3kqwo.png"
-                            alt="Like us on Facebook"
-                            width="44"
-                            class="social-sharing-icon facebook"
-                            style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%; height: 44px; margin: 0 2px;">
-                      </a>&nbsp;
-                      <a href=""
-                         style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">
-                        <img
-                            src="https://res.cloudinary.com/almondgreen/image/upload/v1575360711/Butternut/iconfinder_1_Instagram_colored_svg_1_5296765_ztb7wc.png"
-                            alt="Follow us on Instagram"
-                            width="44"
-                            class="social-sharing-icon"
-                            style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%; height: 44px; margin: 0 2px;">
-                      </a>&nbsp;
-                    </td>
-                  </tr>
-                </table>
               </td>
             </tr>
           </table>

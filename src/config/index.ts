@@ -62,6 +62,9 @@ interface Config {
     from: string;
   };
   assetsPath: string;
+  clientUrl: string;
+  serverUrl: string;
+  redisURL: string;
 }
 
 export const config: Config = {
@@ -94,7 +97,7 @@ export const config: Config = {
     ],
   },
   version: appData.version,
-  name: appData.name,
+  name: 'Food Set Go',
   description: appData.description,
   validator: {
     validationError: {
@@ -140,4 +143,9 @@ export const config: Config = {
     from: process.env.MAIL_FROM,
   },
   assetsPath: `${__dirname}/../assets`,
+  redisURL: process.env.REDIS_URL,
+  clientUrl:
+    process.env.NODE_ENV === 'development' ? process.env.DEVELOPMENT_SITE_URL : process.env.PRODUCTION_SITE_URL,
+  serverUrl:
+    process.env.NODE_ENV === 'development' ? process.env.DEVELOPMENT_SERVER_URL : process.env.PRODUCTION_SERVER_URL,
 };
