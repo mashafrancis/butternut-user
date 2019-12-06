@@ -1,19 +1,23 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { Client, ClientProxy, Transport } from '@nestjs/microservices';
 import { ApiImplicitBody, ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { config } from '../../config';
 import { RestException } from '../_helpers';
 import { DeepPartial } from '../_helpers/database';
 import { AppLogger } from '../app.logger';
-import { USER_CMD_REGISTER, USER_CMD_REGISTER_VERIFY } from '../user';
+import { USER_CMD_PASSWORD_NEW, USER_CMD_PASSWORD_RESET, USER_CMD_REGISTER, USER_CMD_REGISTER_VERIFY } from '../user';
 import { UserEntity } from '../user/entity';
 import { UserErrorEnum } from '../user/user-error.enum';
 import { UserService } from '../user/user.service';
 // import { AuthService } from './auth.userService';
 import { CredentialsDto } from './dto/credentials.dto';
 import { JwtDto } from './dto/jwt.dto';
+import { PasswordResetDto } from './dto/password-reset.dto';
+import { PasswordTokenDto } from './dto/password-token.dto';
 import { UserEntityDto } from './dto/user-entity.dto';
+import { VerifyResendDto } from './dto/verify-resend.dto';
 import { VerifyTokenDto } from './dto/verify-token.dto';
-import { createAuthToken } from './jwt';
+import { createAuthToken, verifyToken } from './jwt';
 
 @ApiUseTags('auth')
 @Controller('auth')
@@ -71,5 +75,52 @@ export class AuthController {
       error => this.logger.error(error, '')
     );
     return createAuthToken(user);
+  }
+
+  @Post('register/verify/resend')
+  @HttpCode(204)
+  @ApiImplicitBody({ required: true, type: VerifyResendDto, name: 'VerifyResendDto' })
+  @ApiResponse({ status: 204, description: 'NO CONTENT' })
+  public async registerVerifyResend(@Body() body: VerifyResendDto): Promise<void> {
+    try {
+      this.logger.debug(`[registerVerifyResend] Email where resend verification ${body.email}`);
+      const user = await this.userService.findByEmail(body.email);
+      if (user.is_verified) {
+        throw new Error(`User ${user.email} already verified`);
+      }
+      this.client.send({ cmd: USER_CMD_REGISTER }, user).subscribe(
+        () => this.logger.debug(`[registerVerify] Sent command registry verify for email ${body.email}`),
+        error => this.logger.error(error, '')
+      );
+    } catch (err) {
+      this.logger.error(`[registerVerifyResend] ${err.message}`, err.stack);
+    }
+  }
+
+  @Post('password/reset')
+  @HttpCode(204)
+  @ApiImplicitBody({ required: true, type: PasswordResetDto, name: 'PasswordResetDto' })
+  @ApiResponse({ status: 204, description: 'NO CONTENT' })
+  public passwordReset(@Body() data: DeepPartial<UserEntity>): void {
+    this.logger.debug(`[passwordReset] User ${data.email} starts password reset`);
+    this.client.send({ cmd: USER_CMD_PASSWORD_RESET }, { email: data.email }).subscribe(
+      () => this.logger.debug(`[passwordReset] Sent command password reset for email ${data.email}`),
+      error => this.logger.error(error, '')
+    );
+  }
+
+  @Post('password/new')
+  @HttpCode(204)
+  @ApiImplicitBody({ required: true, type: PasswordTokenDto, name: 'PasswordTokenDto' })
+  @ApiResponse({ status: 204, description: 'NO CONTENT' })
+  public async passwordNew(@Body() body: PasswordTokenDto): Promise<void> {
+    this.logger.debug(`[passwordNew] Token ${body.resetToken}`);
+    const token = await verifyToken(body.resetToken, config.session.password_reset.secret);
+    const user = await this.userService.updatePassword({ id: token.id, password: body.password });
+    this.logger.debug(`[passwordNew] Send change password email for user ${user.email}`);
+    this.client.send({ cmd: USER_CMD_PASSWORD_NEW }, user).subscribe(
+      () => this.logger.debug(`[passwordNew] Sent command for new password for email ${user.email}`),
+      error => this.logger.error(error, '')
+    );
   }
 }
