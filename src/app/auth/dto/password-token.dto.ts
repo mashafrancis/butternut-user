@@ -1,9 +1,9 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class PasswordTokenDto {
-  @ApiModelProperty()
+  @ApiProperty()
   resetToken: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   password: string;
 }

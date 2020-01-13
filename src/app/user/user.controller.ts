@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiImplicitBody, ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { config } from '../../config';
 
 import { User } from '../_helpers/decorators';
@@ -20,7 +20,7 @@ import {
 import { UserService } from './user.service';
 
 @Controller('user')
-@ApiUseTags('user')
+@ApiTags('user')
 export class UserController {
   private logger = new AppLogger(UserController.name);
 
@@ -33,7 +33,7 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(201)
-  @ApiImplicitBody({ required: true, type: SubscriptionDto, name: 'SubscriptionDto' })
+  @ApiBody({ required: true, type: SubscriptionDto, description: 'SubscriptionDto' })
   @ApiResponse({ status: 201, description: 'ACCEPTED' })
   public async subscription(@Body() data: SubscriptionDto, @User() user: UserEntity): Promise<void> {
     try {
