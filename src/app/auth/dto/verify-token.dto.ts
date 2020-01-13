@@ -1,9 +1,9 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class VerifyTokenDto {
-  @ApiModelProperty()
+  @ApiProperty()
   verifyToken: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   email: string;
 }

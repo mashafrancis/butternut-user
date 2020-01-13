@@ -55,7 +55,7 @@ export class AppDispatcher {
     // emitter.setMaxListeners(25);
 
     const document = SwaggerModule.createDocument(this.app, options);
-    document.paths['/graphql'] = { get: { tags: ['graphql'] }, post: { tags: ['graphql'] } };
+    // document.paths['/graphql'] = { get: { tags: ['graphql'] }, post: { tags: ['graphql'] } };
     SwaggerModule.setup('/swagger', this.app, document);
   }
 

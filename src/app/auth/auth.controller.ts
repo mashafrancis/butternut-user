@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { Client, ClientProxy, Transport } from '@nestjs/microservices';
-import { ApiImplicitBody, ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { config } from '../../config';
 import { RestException } from '../_helpers';
 import { DeepPartial } from '../_helpers/database';
@@ -19,7 +19,7 @@ import { VerifyResendDto } from './dto/verify-resend.dto';
 import { VerifyTokenDto } from './dto/verify-token.dto';
 import { createAuthToken, verifyToken } from './jwt';
 
-@ApiUseTags('auth')
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   @Client({ transport: Transport.TCP })
@@ -33,7 +33,7 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(204)
-  @ApiImplicitBody({ required: true, type: UserEntityDto, name: 'UserEntityDto' })
+  @ApiBody({ required: true, type: UserEntityDto, description: 'UserEntityDto' })
   @ApiResponse({ status: 204, description: 'NO_CONTENT' })
   public async register(@Body() data: DeepPartial<UserEntity>): Promise<UserEntity> {
     const user = await this.userService.create(data);
@@ -56,7 +56,7 @@ export class AuthController {
 
   @Post('register/verify')
   @HttpCode(200)
-  @ApiImplicitBody({ required: true, type: VerifyTokenDto, name: 'VerifyTokenDto' })
+  @ApiBody({ required: true, type: VerifyTokenDto, description: 'VerifyTokenDto' })
   @ApiResponse({ status: 200, description: 'OK', type: JwtDto })
   public async registerVerify(@Body() body: VerifyTokenDto): Promise<JwtDto> {
     this.logger.debug(`[registerVerify] Token ${body.verifyToken}`);
@@ -79,7 +79,7 @@ export class AuthController {
 
   @Post('register/verify/resend')
   @HttpCode(204)
-  @ApiImplicitBody({ required: true, type: VerifyResendDto, name: 'VerifyResendDto' })
+  @ApiBody({ required: true, type: VerifyResendDto, description: 'VerifyResendDto' })
   @ApiResponse({ status: 204, description: 'NO CONTENT' })
   public async registerVerifyResend(@Body() body: VerifyResendDto): Promise<void> {
     try {
@@ -99,7 +99,7 @@ export class AuthController {
 
   @Post('password/reset')
   @HttpCode(204)
-  @ApiImplicitBody({ required: true, type: PasswordResetDto, name: 'PasswordResetDto' })
+  @ApiBody({ required: true, type: PasswordResetDto, description: 'PasswordResetDto' })
   @ApiResponse({ status: 204, description: 'NO CONTENT' })
   public passwordReset(@Body() data: DeepPartial<UserEntity>): void {
     this.logger.debug(`[passwordReset] User ${data.email} starts password reset`);
@@ -111,7 +111,7 @@ export class AuthController {
 
   @Post('password/new')
   @HttpCode(204)
-  @ApiImplicitBody({ required: true, type: PasswordTokenDto, name: 'PasswordTokenDto' })
+  @ApiBody({ required: true, type: PasswordTokenDto, description: 'PasswordTokenDto' })
   @ApiResponse({ status: 204, description: 'NO CONTENT' })
   public async passwordNew(@Body() body: PasswordTokenDto): Promise<void> {
     this.logger.debug(`[passwordNew] Token ${body.resetToken}`);

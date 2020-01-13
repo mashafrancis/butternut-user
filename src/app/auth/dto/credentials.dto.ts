@@ -1,13 +1,13 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
 export class CredentialsDto {
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsString()
   readonly email: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsString()
   readonly password: string;
 }
