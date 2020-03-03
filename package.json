@@ -29,12 +29,12 @@
     "typeorm:migrations": "typeorm migration:generate -n Migration"
   },
   "dependencies": {
-    "@nestjs/common": "^6.10.2",
-    "@nestjs/core": "^6.10.2",
+    "@nestjs/common": "^6.11.6",
+    "@nestjs/core": "^6.11.6",
     "@nestjs/graphql": "^6.5.3",
     "@nestjs/microservices": "^6.10.3",
     "@nestjs/passport": "^6.1.0",
-    "@nestjs/platform-express": "^6.10.2",
+    "@nestjs/platform-express": "^6.11.6",
     "@nestjs/swagger": "^3.1.0",
     "@types/uuid": "^3.4.6",
     "apollo-server-express": "^2.9.12",
