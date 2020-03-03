@@ -37,7 +37,7 @@
     "@nestjs/platform-express": "^6.10.2",
     "@nestjs/swagger": "^3.1.0",
     "@types/uuid": "^3.4.6",
-    "apollo-server-express": "^2.9.12",
+    "apollo-server-express": "^2.10.0",
     "argon2": "^0.25.1",
     "async": "^3.1.0",
     "async-exit-hook": "^2.0.1",
