@@ -31,7 +31,7 @@
   "dependencies": {
     "@nestjs/common": "^6.10.2",
     "@nestjs/core": "^6.10.2",
-    "@nestjs/graphql": "^6.5.3",
+    "@nestjs/graphql": "^7.4.0",
     "@nestjs/microservices": "^6.10.3",
     "@nestjs/passport": "^6.1.0",
     "@nestjs/platform-express": "^6.10.2",
