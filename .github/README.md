@@ -20,7 +20,7 @@
 </div>
 
 ### Description
-This is the user management micro-userService for the butternut project project used for user authentication and user profiling.
+This is the user management micro-userService for the butternut project used for user authentication and user profiling.
 
 ### Application Links and Documentation
 

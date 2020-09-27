@@ -1,1 +1,3 @@
 /src/app/graphql.schema.ts
+package.json
+yarn.lock

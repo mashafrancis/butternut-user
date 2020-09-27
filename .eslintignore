@@ -1,0 +1,8 @@
+"**/*.test.tsx"
+"**/*.test.ts"
+node_modules
+dist
+fixtures
+shared-fixtures
+coverage
+__snapshots__

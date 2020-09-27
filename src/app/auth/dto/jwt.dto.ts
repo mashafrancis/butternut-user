@@ -1,12 +1,12 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class JwtDto {
-  @ApiModelProperty()
-  expiresIn: number;
+	@ApiProperty()
+	expiresIn: number;
 
-  @ApiModelProperty()
-  accessToken: string;
+	@ApiProperty()
+	accessToken: string;
 
-  @ApiModelProperty()
-  refreshToken: string;
+	@ApiProperty()
+	refreshToken: string;
 }

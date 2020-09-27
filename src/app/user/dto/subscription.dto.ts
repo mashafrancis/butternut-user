@@ -1,26 +1,25 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsOptional } from 'class-validator';
 
 export class SubscriptionDto {
+	@ApiProperty({
+		required: false,
+	})
+	@IsOptional()
+	@IsBoolean()
+	public email?: boolean;
 
-  @ApiModelProperty({
-    required: false,
-  })
-  @IsOptional()
-  @IsBoolean()
-  public email?: boolean;
+	@ApiProperty({
+		required: false,
+	})
+	@IsOptional()
+	@IsBoolean()
+	public push?: boolean;
 
-  @ApiModelProperty({
-    required: false,
-  })
-  @IsOptional()
-  @IsBoolean()
-  public push?: boolean;
-
-  @ApiModelProperty({
-    required: false,
-  })
-  @IsOptional()
-  @IsBoolean()
-  public sms?: boolean;
+	@ApiProperty({
+		required: false,
+	})
+	@IsOptional()
+	@IsBoolean()
+	public sms?: boolean;
 }

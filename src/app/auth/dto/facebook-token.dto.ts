@@ -1,6 +1,6 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class FacebookTokenDto {
-  @ApiModelProperty()
-  access_token: string;
+	@ApiProperty()
+	access_token: string;
 }

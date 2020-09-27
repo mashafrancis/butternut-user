@@ -1,6 +1,6 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class VerifyResendDto {
-  @ApiModelProperty()
-  email: string;
+	@ApiProperty()
+	email: string;
 }

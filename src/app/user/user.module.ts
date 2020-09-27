@@ -10,20 +10,19 @@ import { UserService } from './user.service';
 import { IsUserAlreadyExist } from './user.validator';
 
 const PROVIDERS = [
-  ...userProviders,
-  IsUserAlreadyExist,
-  UserService,
-  OnlineService,
-  UserResolver,
-  UserSubscriptionService,
-  UserCommand,
+	...userProviders,
+	IsUserAlreadyExist,
+	UserService,
+	OnlineService,
+	UserResolver,
+	UserSubscriptionService,
+	UserCommand,
 ];
 
 @Module({
-  controllers: [UserController],
-  providers: [...PROVIDERS],
-  imports: [DatabaseModule],
-  exports: [UserService, OnlineService],
+	controllers: [UserController],
+	providers: [...PROVIDERS],
+	imports: [DatabaseModule],
+	exports: [UserService, OnlineService],
 })
-export class UserModule {
-}
+export class UserModule {}

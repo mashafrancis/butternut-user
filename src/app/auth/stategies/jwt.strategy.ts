@@ -7,20 +7,20 @@ import { JwtPayload } from '../interfaces/jwt-payload.inteface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private readonly authService: AuthService) {
-    super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: config.session.secret,
-      issuer: config.uuid,
-      audience: config.session.domain,
-    });
-  }
+	constructor(private readonly authService: AuthService) {
+		super({
+			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+			secretOrKey: config.session.secret,
+			issuer: config.uuid,
+			audience: config.session.domain,
+		});
+	}
 
-  async validate(payload: JwtPayload) {
-    const user = await this.authService.validateUser(payload);
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    return user;
-  }
+	async validate(payload: JwtPayload) {
+		const user = await this.authService.validateUser(payload);
+		if (!user) {
+			throw new UnauthorizedException();
+		}
+		return user;
+	}
 }

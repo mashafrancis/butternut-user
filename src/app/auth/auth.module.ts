@@ -6,9 +6,8 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './stategies';
 
 @Module({
-  imports: [UserModule, DatabaseModule],
-  providers: [AuthService, JwtStrategy],
-  controllers: [AuthController],
+	imports: [UserModule, DatabaseModule],
+	providers: [AuthService, JwtStrategy],
+	controllers: [AuthController],
 })
-export class AuthModule {
-}
+export class AuthModule {}

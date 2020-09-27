@@ -4,9 +4,9 @@ import { JwtPayload } from './interfaces/jwt-payload.inteface';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService) {}
+	constructor(private readonly userService: UserService) {}
 
-  async validateUser(payload: JwtPayload): Promise<any> {
-    return this.userService.findOneById(payload.id);
-  }
+	async validateUser(payload: JwtPayload): Promise<any> {
+		return this.userService.findOneById(payload.id);
+	}
 }

@@ -6,15 +6,17 @@ import { RequestContext } from '../request-context';
 @Injectable()
 // @ts-ignore
 export class RequestContextMiddleware implements NestMiddleware {
-  resolve() {
-    return (req: Request, res: Response, next) => {
-      const requestContext = new RequestContext(req, res);
-      const session = cls.getNamespace(RequestContext.nsid) || cls.createNamespace(RequestContext.nsid);
+	resolve() {
+		return (req: Request, res: Response, next) => {
+			const requestContext = new RequestContext(req, res);
+			const session =
+				cls.getNamespace(RequestContext.nsid) ||
+				cls.createNamespace(RequestContext.nsid);
 
-      session.run(async () => {
-        session.set(RequestContext.name, requestContext);
-        next();
-      });
-    };
-  }
+			session.run(async () => {
+				session.set(RequestContext.name, requestContext);
+				next();
+			});
+		};
+	}
 }

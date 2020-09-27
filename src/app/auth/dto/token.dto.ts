@@ -1,15 +1,15 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class TokenDto {
-  @ApiModelProperty()
-  id: string;
+	@ApiProperty()
+	id: string;
 
-  @ApiModelProperty()
-  expiresIn: number;
+	@ApiProperty()
+	expiresIn: number;
 
-  @ApiModelProperty()
-  audience: string;
+	@ApiProperty()
+	audience: string;
 
-  @ApiModelProperty()
-  issuer: string;
+	@ApiProperty()
+	issuer: string;
 }

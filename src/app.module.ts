@@ -12,29 +12,29 @@ import { SecurityModule } from './app/security';
 import { UserModule } from './app/user/user.module';
 
 @Module({
-  imports: [
-    HealthCheckModule,
-    SecurityModule,
-    DatabaseModule,
-    AuthModule,
-    UserModule,
-    CommonModule,
-    GraphQLModule.forRootAsync({
-      imports: [UserModule],
-      useClass: GqlConfigService,
-    }),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
-  // GraphQLModule.forRoot({
-  //     autoSchemaFile: 'schema.gql',
-  //     playground: true,
-  //   }),
+	imports: [
+		HealthCheckModule,
+		SecurityModule,
+		DatabaseModule,
+		AuthModule,
+		UserModule,
+		CommonModule,
+		GraphQLModule.forRootAsync({
+			imports: [UserModule],
+			useClass: GqlConfigService,
+		}),
+	],
+	controllers: [AppController],
+	providers: [AppService],
+	// GraphQLModule.forRoot({
+	//     autoSchemaFile: 'schema.gql',
+	//     playground: true,
+	//   }),
 })
 export class AppModule {
-  private logger = new AppLogger(AppModule.name);
+	private logger = new AppLogger(AppModule.name);
 
-  constructor() {
-    this.logger.log('Initialize constructor');
-  }
+	constructor() {
+		this.logger.log('Initialize constructor');
+	}
 }

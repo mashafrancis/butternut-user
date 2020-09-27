@@ -3,16 +3,11 @@ import { AuthorizationChecker } from './authorization-checker';
 import { SecurityService } from './security.service';
 import { VoterRegistry } from './voter';
 
-const PROVIDERS = [
-  VoterRegistry,
-  SecurityService,
-  AuthorizationChecker,
-];
+const PROVIDERS = [VoterRegistry, SecurityService, AuthorizationChecker];
 
 @Global()
 @Module({
-  providers: [...PROVIDERS],
-  exports: [...PROVIDERS],
+	providers: [...PROVIDERS],
+	exports: [...PROVIDERS],
 })
-export class SecurityModule {
-}
+export class SecurityModule {}
