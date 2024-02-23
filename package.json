@@ -38,7 +38,7 @@
     "@nestjs/swagger": "^5.2.1",
     "@types/uuid": "^8.3.4",
     "apollo-server-express": "^3.6.7",
-    "argon2": "^0.28.5",
+    "argon2": "^0.40.1",
     "async": "^3.2.3",
     "async-exit-hook": "^2.0.1",
     "class-transformer": "^0.5.1",
