@@ -29,7 +29,7 @@
     "typeorm:migrations": "typeorm migration:generate -n Migration"
   },
   "dependencies": {
-    "@nestjs/common": "^8.4.4",
+    "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^8.4.4",
     "@nestjs/graphql": "^10.0.10",
     "@nestjs/microservices": "^8.4.4",
