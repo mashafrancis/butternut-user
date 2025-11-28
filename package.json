@@ -50,7 +50,7 @@
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.3",
     "faker": "^6.6.6",
-    "googleapis": "^100.0.0",
+    "googleapis": "^124.0.0",
     "graphql": "^16.3.0",
     "graphql-tag-pluck": "^0.8.7",
     "graphql-tools": "^8.2.8",
