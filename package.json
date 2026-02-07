@@ -35,7 +35,7 @@
     "@nestjs/microservices": "^8.4.4",
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.4.4",
-    "@nestjs/swagger": "^5.2.1",
+    "@nestjs/swagger": "^11.2.6",
     "@types/uuid": "^8.3.4",
     "apollo-server-express": "^3.6.7",
     "argon2": "^0.28.5",
